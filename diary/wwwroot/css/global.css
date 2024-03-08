@@ -1,0 +1,333 @@
+﻿body {
+    font-size: 14px;
+    color: white;
+    /*font-family: "微软雅黑";
+           background-color: #0c1c2c;
+    */
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: red;
+    }
+
+/*页眉*/
+#head, #menu, #content, #footer { 
+    margin: 0px auto;
+}
+
+#logo {
+    float: left;
+    width: 800px;
+}
+
+#user {
+    float: right;
+    width: 200px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 50px;
+}
+
+#bannel {
+    background-image: url('../img/bannel.jpg');
+    background-repeat: no-repeat;
+    height: 100px;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+#middle {
+    background-color: #d0cbdf; /*中间内容部分背景颜色*/
+}
+/*menu*/
+#menu {
+    position: relative;
+    top: 68px;
+}
+
+    #menu ul {
+        list-style: none;
+        /*background-color: #0c1c2c;*/
+        background: rgba(12,28,44,0.8);
+        border: 1px solid black;
+    }
+
+        #menu ul li {
+            float: left;
+        }
+
+            #menu ul li a {
+                display: block;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                width: 100px;
+            }
+
+                #menu ul li a:hover {
+                    background-color: #ff6a00;
+                    color: white;
+                }
+
+.activemenu {
+    background-color: #3e80e9;
+}
+/*content*/
+#content {
+    color: black;
+    margin: 20px auto;
+}
+
+    #content a {
+        color: black;
+    }
+
+        #content a:hover {
+            color: red;
+        }
+
+#clink {
+    height: 30px;
+    line-height: 30px;
+}
+
+#list dl {
+    overflow: hidden;
+    margin: 10px 0px;
+    border-bottom: 1px dashed #808080;
+    height: 150px;
+}
+
+#list dt {
+    float: left;
+}
+
+    #list dt img {
+        width: 180px;
+        height: 130px;
+        margin-left: 10px;
+    }
+
+#list dd {
+    margin: 0px 0px 0px 230px;
+    padding: 8px;
+}
+
+#title {
+    font-size: 16px;
+    line-height: 45px;
+    height: 45px;
+    font-weight: bold;
+}
+
+#type span {
+    padding: 0px 20px 0px 5px;
+}
+
+#pages {
+    width: 800px;
+    margin: 0px auto;
+    padding-bottom: 10px;
+}
+
+    #pages a {
+        display: block;
+        border: 1px solid #c1bfbf;
+        margin: 5px;
+        float: left;
+        padding: 5px 10px;
+    }
+
+.active {
+/*    background-color: #3e80e9;*/
+    color: red;
+}
+/*footer*/
+#footer {
+    text-align: center;
+}
+
+    #footer p {
+        text-align: center;
+        line-height: 20px;
+        color: #808080;
+    }
+
+#flogo {
+    width: 150px;
+    float: left;
+    margin: 10px;
+}
+
+    #flogo img {
+        width: 200px;
+    }
+
+#cfooter {
+    width: 750px;
+    line-height: 28px;
+    float: right;
+    margin: 5px;
+    color: #c1bfbf;
+}
+/*登录*/
+#hlogo {
+    text-align: center;
+    padding: 20px;
+}
+
+    #hlogo p {
+        color: white;
+        font-size: 26px;
+        padding-top: 30px;
+    }
+
+#login { 
+    margin: 0px auto;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+}
+#logoimg{
+    width:120px; 
+    border-radius:50%
+}
+.input-block {
+    display: block;
+    margin: 20px auto;
+    /*    background-color: #02051b;*/
+    border: 1px solid #808080;
+    width: 200px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    padding: 3px 10px; 
+}
+
+.input-block-small {
+    display: block;
+    margin: 10px auto;
+    background-color: #02051b;
+    border: 1px solid #808080;
+    width: 400px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    padding: 3px 5px;
+    color: white;
+}
+
+.block1 {
+    text-align: left;
+    width: 420px;
+    height: 35px;
+    line-height: 35px;
+    margin: 0px auto;
+    padding-left: 10px;
+    color: #808080;
+}
+
+.input-radio {
+    background-color: #0c1c2c;
+    border: 1px solid #808080;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    margin: 0px 10px 0px 0px;
+}
+
+.input-checkbox {
+    background-color: #0c1c2c;
+    border: 1px solid #808080;
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    margin: 0px 10px 0px 0px;
+}
+
+#submit {
+    display: block;
+    margin: 20px auto;
+    background-color: #3e80e9;
+    border: 1px solid #3e80e9;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+}
+/*英雄*/
+#heros {
+    width: 1000px;
+    margin: 0px auto;
+}
+
+    #heros dl {
+        width: 180px;
+        float: left;
+        border: 2px solid white;
+        margin: 10px 5px;
+        position: relative;
+    }
+
+        #heros dl a {
+            color: white;
+        }
+
+        #heros dl img {
+            width: 180px;
+            height: 230px;
+        }
+
+        #heros dl dd {
+            position: absolute;
+            bottom: 1px;
+            height: 30px;
+            width: 140px;
+            background: rgba(12,28,44,0.8);
+            font-size: 20px;
+            font-style: italic;
+            font-weight: bold;
+            padding-top: 20px;
+            padding-left: 40px;
+        }
+
+#videos dl {
+    width: 295px;
+    float: left;
+    border: 2px solid black;
+    margin: 10px 5px;
+    position: relative;
+}
+
+    #videos dl a {
+        color: white;
+    }
+
+    #videos dl img {
+        width: 295px;
+        height: 200px;
+    }
+
+    #videos dl dd {
+        position: absolute;
+        bottom: 0px;
+        height: 30px;
+        width: 277px;
+        background: rgba(12,28,44,0.8);
+        font-size: 22px;
+        font-weight: bold;
+        padding: 5px 10px;
+    }

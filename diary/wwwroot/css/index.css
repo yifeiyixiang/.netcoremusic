@@ -1,0 +1,94 @@
+﻿*{
+    padding:0px;
+    margin:0px;
+}
+html{
+
+}
+.top {
+    /*background-color:aliceblue;*/
+    text-align: left;
+    font-size: 22px;
+}
+.top .textbox{
+    display:inline-block; 
+}
+.top .textbox2{
+    display: block; 
+}
+.top .textbox3 {  
+    text-align:center
+}
+#mydown{
+    visibility:hidden;
+    display:inline-block;
+}
+.centerbox {
+    width: 100%;
+    box-shadow: 1px 1px 2px 1px;
+     
+    overflow:auto;
+}
+.centerbox .centeritem {
+    width: 100%;
+    /*box-shadow: 1px 1px 9px 1px;*/
+}
+.centerbox .data-item {
+    background-color:aliceblue;
+
+    text-align: left;
+    /*margin-bottom:5px;*/
+    font-weight:bold;
+}
+.centerbox .data-item .date {
+     
+}
+.centerbox .data-item .weather {
+    margin-right:10px
+     
+}
+.centerbox .data-item .deletebtn { 
+     
+}
+.centerbox .data-item .updatebtn {
+    margin-right:10px
+     
+}
+.centerbox .data-text {
+    /*background-color:aliceblue;  white-space:pre; 保留换行符 */  
+    text-align: left;
+    font-size:18px; 
+    white-space:pre-line; 
+    font-family:'微软雅黑'
+}
+#key { 
+    height: 21px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    height: 30px;
+    width: 280px;
+    padding-left: 5px;
+}
+
+
+/*upload*/
+/* 此为上传文件样式 
+.file-wraps{
+    background: orange;
+    width: 100px;
+    height: 45px;
+    position: relative;
+    color: white;
+    text-align: center;
+    line-height: 45px;
+}
+.file-wraps input{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    bottom: 0;  
+    right: 0;
+    opacity: 0;
+} */

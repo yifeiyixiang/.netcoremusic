@@ -1,0 +1,323 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var tableData = ViewBag.TableData as System.Data.DataTable;
+}
+<link rel="stylesheet" href="~/css/style.css">
+<link rel="stylesheet" href="~/font/iconfont.css">
+<form method="post" id="uploadForm" enctype="multipart/form-data" action="/Home/UploadFile">
+    <div class="text-center">
+        <h5>Daily note</h5>
+        <div class="top">
+            <div class="textbox">日期: @ViewBag.date @ViewBag.week  </div>
+            <div class="file-wraps">
+                <div class="textbox">
+                    DBPath:@ViewBag.dbstr <input class="textbox" id="key" name="key" /> <a href="javascript:checks();"> |Download|</a>
+                    @if (ViewBag.IsUserValid)
+                    {
+                        <input type="file" name="files" id="fileInput" value="上传音乐" class="textbox" onchange="UploadFiles(event)" multiple style="width:105px;opacity:0.5" />
+                        <input type="submit" class="file-input" id="upload" value="文件上传" style="opacity:.5;display:none"   />
+                    }
+                </div>
+            </div>
+        </div>
+        <div id="dataContainer" class="centerbox">
+            <div id="progressContainer"></div>
+
+        </div>
+        <div id="player" style="top:0px;left:0px">
+            <!-- 歌曲信息模块 -->
+            <div id="player-content1">
+                <!-- 歌曲名 -->
+                <div class="music-name"></div>
+                <!-- 歌手名 -->
+                <div class="artist-name" style="display: none;"></div>
+                <!-- 歌曲时间 -->
+                <div class="time">
+                    <!-- 当前播放的时间 -->
+                    <div class="current-time"></div>
+                    <!-- 歌曲总时长 -->
+                    <div class="total-time"></div>
+                </div>
+                <!-- 进度条 -->
+                <div id="s-area">
+                    <!-- 鼠标移动到进度条上，显示的时间信息 -->
+                    <div id="ins-time"></div>
+                    <!-- 鼠标移动到进度条上，进度条变暗部分-->
+                    <div id="s-hover"></div>
+                    <!-- 表示当前歌曲播放进度的蓝色进度条 -->
+                    <div id="seek-bar"></div>
+                </div>
+                <!-- 音量 -->
+                <div class="volume-control">
+                    <svg class="icon" style="vertical-align: middle; overflow: hidden;width:16px" viewBox="0 0 1269 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M609.4249 14.381584l-227.743561 142.002328a190.545446 190.545446 0 0 1-99.237148 27.835324H169.247206a167.939789 167.939789 0 0 0-169.120682 165.704528v329.975115a183.375741 183.375741 0 0 0 183.122693 182.405723H314.623512a194.256823 194.256823 0 0 1 99.237148 27.835324l197.08253 119.734069a83.885545 83.885545 0 0 0 48.922691 13.917662 93.45921 93.45921 0 0 0 93.627909-93.290511V93.670083a86.162981 86.162981 0 0 0-13.959837-48.753992A94.218355 94.218355 0 0 0 609.4249 14.381584z m48.922691 916.161737l-197.08253-119.734069a297.880143 297.880143 0 0 0-145.376307-41.752986H184.514459a89.916532 89.916532 0 0 1-89.45261-89.115212V349.965939a72.920114 72.920114 0 0 1 72.709241-72.414018h114.630926a281.853744 281.853744 0 0 0 149.551605-41.752986l227.743561-142.002328v836.831063h-1.391766z m563.285741-465.060787H940.496558a47.320051 47.320051 0 1 0 0 94.682277h280.9259a47.952672 47.952672 0 0 0 47.530925-47.362226 47.024828 47.024828 0 0 0-47.320051-47.277876z m-18.17731 396.822068l-244.613455-140.610562a45.88611 45.88611 0 1 0-46.139158 79.372849l244.613454 140.610562a45.88611 45.88611 0 1 0 46.139159-79.372849z m-247.396987-560.923956l244.613454-140.610562a45.88611 45.88611 0 1 0-46.139158-79.372848l-244.613455 140.610561a43.777373 43.777373 0 0 0-16.869893 62.671654 45.253489 45.253489 0 0 0 62.882528 16.869894z"></path></svg>
+                    <input type="range" id="volume-slider" min="0" max="100" value="100" step="1">
+                </div>
+            </div>
+
+            <!-- 控制模块 -->
+            <div id="player-content2">
+                <!-- 左侧list模块 -->
+                <div class="music-control">
+                    <svg id="musicControl" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+                    </svg>
+                    <svg id="loopControl" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 29 32"><path d="M9.333 9.333h13.333v4l5.333-5.333-5.333-5.333v4h-16v8h2.667v-5.333zM22.667 22.667h-13.333v-4l-5.333 5.333 5.333 5.333v-4h16v-8h-2.667v5.333z"></path></svg>
+
+                </div>
+                <!-- 左侧歌曲封面旋转模块 -->
+                <div class="music-imgs">
+                    <!-- 封面图 -->
+                    <div class="img" style="background-size: cover;background-repeat: no-repeat;background-position: center;"></div>
+                    <!-- 歌曲缓冲时的提示文字 -->
+                    <div id="buffer-box">缓冲…</div>
+                </div>
+                <!-- 右侧歌曲操作模块 -->
+                <div class="player-controls">
+                    <!-- 上一首按钮 -->
+                    <div class="btn prev iconfont">&#xe603;</div>
+                    <!-- 暂停/播放 按钮 -->
+                    <div class="btn play-pause icon-jiediankaishi iconfont"></div>
+                    <!-- 下一首按钮 -->
+                    <div class="btn next iconfont">&#xe602;</div>
+                </div>
+            </div>
+            <div class="music-list"> <ul id="myList"> </ul> </div>
+        </div>
+      
+        @*<div class="centerbox">
+
+            @if (tableData != null)
+            {
+
+                @foreach (System.Data.DataRow item in tableData.Rows)
+                {
+                    DateTime date = DateTime.Parse(item["date"].ToString());
+                    string weekday = date.ToString("dddd");
+
+                    <div class="centeritem">
+                        <div class="data-item">
+                            <span class="date">@item["date"] @weekday</span>
+                            <span class="weather">天气 @item["weather"] </span>
+                            @if (ViewBag.IsUserValid)
+                            {
+                                <span class="updatebtn"> <a href="/Home/Update?id=@item["id"]">修改</a>   </span>
+                                <span class="deletebtn"> <a href="/Home/Detail?id=@item["id"]" onclick="return confirm('确定要删除吗？')">删除</a> </span>
+                            }
+                            else if (item["date"] == ViewBag.showdate)
+                            {
+                                <span class="updatebtn"> <a href="/Home/Update?id=@item["id"]">修改</a>   </span>
+
+                            }
+                        </div>
+
+
+                        <div class="data-text">
+                            @item["event"]
+                        </div>
+                        <hr />
+
+                    </div>
+                }
+
+            }
+        </div>*@
+    </div>
+</form>
+@*<form method="post" action="/Home/downloadFile">
+        <input type="text" name="inputName" value="inputValue" />
+        <input type="submit" value="Submit" />
+    </form>*@
+@*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/index.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.min.js"></script>
+<script src="~/js/site.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        fetchDataAndDisplay();
+    });
+    function fetchDataAndDisplay(key) {
+        console.log(key)
+        $.ajax({
+            url: '@Url.Content("~/Home/GetData")' + '?key =' + key, // 修改为获取数据的后端接口地址
+            data: { key: key },
+            dataType: 'json',
+            success: function (data) {
+                var container = $('#dataContainer');
+                container.empty(); // 清空容器
+
+                if (data != null && data.length > 0) {
+                    console.log(data)
+                    $.each(data, function(index, item) {
+                        var date = new Date(item.date);
+                        var weekday = date.toLocaleDateString('zh-CN', { weekday: 'long' });
+                        var centeritem = $('<div>').addClass('centeritem');
+                        var dataItem = $('<div>').addClass('data-item');
+                        var dateSpan = $('<span>').addClass('date').text(item.date + ' ' + weekday );
+                        var weatherSpan = $('<span>').addClass('weather').text(' 天气 ' + item.weather);
+
+                        dataItem.append(dateSpan, weatherSpan);
+
+                        if (@ViewBag.IsUserValidjs) {
+                            var updateBtn = $('<span>').addClass('updatebtn').append($('<a>').attr('href', '/Home/Update?id=' + item.id).text('修改'));
+                            var deleteBtn = $('<span>').addClass('deletebtn').append($('<a>').attr('href', '/Home/Detail?id=' + item.id).text('删除').click(function() {
+                                return confirm('确定要删除吗？');
+                            }));
+                            dataItem.append(updateBtn, deleteBtn);
+                        } else if (item.date === '@ViewBag.showdate') {
+                            var updateBtn = $('<span>').addClass('updatebtn').append($('<a>').attr('href', '/Home/Update?id=' + item.id).text('修改'));
+
+                            dataItem.append(updateBtn);
+                        }
+                        //<textarea rows="3" name="text" style="width:100%">
+                        var dataText = $('<div>').addClass('data-text').text(item.event);
+                        var hr = $('<hr>');
+                        centeritem.append(dataItem, dataText, hr);
+                        container.append(centeritem);
+                    });
+                }
+            },
+            error: function() {
+                console.log('Error occurred while fetching data.');
+            }
+        });
+    }
+        @*function getForm() {
+        if (id > 0) {
+            ys.ajax({
+                url: '@Url.Content("~/SystemManage/AutoJob/GetFormJson")' + '?id=' + id,
+                type: "get",
+                success: function (obj) {
+                    if (obj.Tag == 1) {
+                        $("#form").setWebControls(obj.Data);
+                    }
+                }
+            });
+        }
+        else {
+            var defaultData = {};
+            defaultData.JobStatus = "@StatusEnum.Yes.ParseToInt()";
+            defaultData.EndTime = "9999-12-31 00:00:00";
+            $("#form").setWebControls(defaultData);
+        }
+    }*@
+    function checks() {
+        url = "/Home/DownloadFile/?key=" + document.getElementById("key").value;//此处拼接内容 +"&age="+age
+        window.open(url, "_self");
+    }
+
+    var inputElement = document.getElementById("key");
+    inputElement.addEventListener("input", function () {
+        var inputValue = inputElement.value;
+        fetchDataAndDisplay(inputValue);
+    });
+    //var searchInput = document.getElementById('key');
+    //searchInput.addEventListener('input', function () {
+    //    var searchText = searchInput.value;
+    //    var inputValue = event.target.value;
+    //    // 在这里执行你的操作，比如执行查询操作或更新其他相关内容
+    //    console.log('输入框的值已变为：', inputValue);
+
+    //    $.ajax({
+    //        url: '/Home/DownloadFile/?key=' + searchText,
+    //        data: { searchText: searchText },
+    //        success: function (response) {
+    //            /*searchResult.innerHTML = response;*/
+    //        }
+    //    });
+    //    console.log('输入框 ：', searchText);
+    //});
+    //多文件上传
+
+    var UploadFiles = function (e) {
+        console.log(e);
+        // 假设你有一个包含歌单列表的 ul 元素
+        var mylist = document.getElementById('albumList'); 
+        // 获取当前选择的歌单的第一个 li 元素的文本内容
+        var selectedPlaylist = mylist.querySelector('li:first-child').textContent;
+        var files = e.target.files; 
+        var progressBars = []; // 保存所有进度条元素  
+        for (var i = 0; i < files.length; i++) {
+            //formData.append("files", files[i]);
+            var file = files[i];
+            var fileStart = 0;
+            //var end = Math.min(chunkSize, file.size);
+            let size = file.size;//文件大小
+            let maxZrea = 8;              //        // 分片大小设置为8MB 
+            let bufferSize = maxZrea * (1024 * 1024);
+            let fileEnd = bufferSize;
+            let arrFile = [];
+            while (fileStart < size) {
+                var fileInfo = {
+                    File: file.slice(fileStart, fileEnd),
+                    Start: fileStart,
+                    End: fileEnd
+                }
+                arrFile.push(fileInfo);
+                fileStart = fileEnd;
+                fileEnd = fileStart + bufferSize; 
+            }
+            let count = arrFile.length;
+            // 获取文件名
+            var fileNameText = $('<div>').html(file.name);
+            for (var j = 0; j < count; j++) {
+                let filename = file.name;
+                var formData = new FormData();
+                // 将歌单参数添加到 FormData 对象中
+                formData.append('playlist', selectedPlaylist);
+                formData.append("file", arrFile[j].File); //将file属性添加到formData里
+                formData.append('Name', filename);
+                formData.append('Number', j);
+                formData.append('BufferSize', bufferSize); 
+                formData.append('Count', count);
+                formData.append('Size', size);
+                formData.append('Start', arrFile[j].Start);
+                formData.append('End', arrFile[j].End);  
+               
+                // 使用 jQuery 的 AJAX 方法发送 POST 请求\ 
+                $.ajax({
+                    url: "/Home/RuleUploadFile",
+                    type: "POST",
+                    data: formData,
+                    processData: false,  // 不处理数据
+                    contentType: false,  // 不设置内容类型
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest(); 
+                        xhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                var percentComplete = (e.loaded / e.total) * 100;
+                                // 更新相应的进度条元素
+                                progressBars.forEach(function (progressBar) {
+                                    progressBar.html(percentComplete.toFixed(2) + '%');
+                                    progressBar.css('width', percentComplete + '%');  
+                                });
+                            }
+                        }, false);
+
+                        return xhr;
+                    },
+                    success: function (response) {
+                        console.log("文件上传成功"); 
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("文件上传失败:", error);
+                    }
+                });
+              
+            }
+
+            var progressBar = $('<div>').html('0%').addClass('progress-bar'); // 创建新的进度条元素; // 创建新的进度条元素
+            progressBars.push(progressBar); // 将新元素添加到数组中
+            $('#progressContainer').append(progressBar, fileNameText); // 将新元素添加到页面中
+        }
+       
+      
+    }
+
+    document.getElementById('fileInput').addEventListener('change', function () {
+        //document.getElementById('uploadForm').submit();
+
+    });
+</script>
