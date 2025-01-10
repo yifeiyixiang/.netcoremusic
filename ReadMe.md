@@ -37,4 +37,4 @@ This project is open-sourced License.
 
 ## Contact
 
-For more information and updates, follow [星尘库 / Kamo · GitCode](https://gitcode.net/qq_28821897/kamo/) on CSDN. or 2424379490@qq.com
+For more information and updates, follow [星尘库](https://blog.csdn.net/qq_28821897) on CSDN. or 2424379490@qq.com
