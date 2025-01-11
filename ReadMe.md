@@ -1,4 +1,4 @@
-# .NET CORE MVC音乐播放器
+# .NET CORE MVC云端音乐播放器
 
 本项目采用B/S结构模式，前端使用Html+Js和Css实现音乐播放样式 AJAX技术请求后端数据 获取歌单
 
@@ -16,16 +16,7 @@
 
 Ø 使用LINQ技术，使得能够更方便地进行数据查询
 
-## 图片预览
-
-![1](pic/1.jpg)
-
-![2](pic/2.jpg)
-
-![3](pic/3.png)
-
-![4](pic/4.png)
-
+ 
 ## License
 
 This project is open-sourced License.
